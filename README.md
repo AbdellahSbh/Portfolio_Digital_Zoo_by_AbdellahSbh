@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+# Digital Zoo Management System 🦁
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Django REST Framework backend project simulating a digital zoo. It includes features for managing animals, habitats, zookeepers, memberships, and ticketing, with token-based authentication and automatic zookeeper assignment.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Features
 
-### `npm start`
+- CRUD operations for animals, species, habitats, zookeepers
+- Visitor registration, login, and token-based authentication
+- Role-based user access (visitor, zookeeper)
+- Auto-assign zookeepers based on workload using `.annotate(Count())`
+- Membership system and event booking
+- Clean API structure using Django REST Framework
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Technologies Used
 
-### `npm test`
+- Python 3.11
+- Django 4.x
+- Django REST Framework
+- SQLite3 (default Django DB)
+- Token authentication (DRF auth)
+- Postman or browser for testing API routes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📁 Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```text
+digital_zoo/
+├── zoo/                      # Django app
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── serializers.py
+│   └── admin.py
+├── digital_zoo_project/      # Project config
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── manage.py
+├── requirements.txt
+└── README.md
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Installation & Running
 
-### `npm run eject`
+### 1. Clone the repository
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/AbdellahSbh/Portfolio_Digital_Zoo_by_AbdellahSbh.git
+cd Portfolio_Digital_Zoo_by_AbdellahSbh
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Create a virtual environment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+# Windows
+python -m venv env
+env\Scripts\activate
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# macOS/Linux
+python3 -m venv env
+source env/bin/activate
+```
 
-## Learn More
+### 3. Install dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+pip install -r requirements.txt
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. Run migrations
 
-### Code Splitting
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 5. Start the development server
 
-### Analyzing the Bundle Size
+```bash
+python manage.py runserver
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🔐 Authentication
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Token authentication is used (DRF).
+- Login endpoint returns token + user role.
+- Use the token for accessing protected routes.
 
-### Advanced Configuration
+```http
+POST /login/
+{
+  "username": "your_user",
+  "password": "your_pass"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🧠 Key Functionality
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- `auto_assign_zookeeper`: Assigns the least busy zookeeper to a care task  
+- `available_zookeepers`: Lists zookeepers with less than 5 assigned animals  
+- Custom user model with roles (visitor, zookeeper)
+- Uses `@api_view` and `.annotate()` to handle dynamic queries
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📡 Example Endpoints
+
+```text
+POST    /login/                      → Log in and receive token
+POST    /register/                   → Register a new user
+GET     /animals/                    → List all animals
+POST    /care/assign/                → Auto-assign zookeeper
+GET     /zookeepers/available/       → List available zookeepers
+GET/POST /memberships/              → Membership management
+GET/POST /events/booking/           → Book events
+```
+
+> Use Postman or any API testing tool to interact with the system.
+
+---
+
+## 📄 License
+
+This project is developed for academic purposes as part of the Programming Clinic module  
+at Lancaster University Leipzig – Michaelmas Term 2025.
