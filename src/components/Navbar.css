@@ -1,0 +1,44 @@
+
+.navbar {
+  background: #388E3C;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navbar li {
+  display: inline-block;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+
+.navbar a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.guest-mode a {
+  background: #FF9800;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.guest-mode a:hover {
+  background: #E68900;
+}
